@@ -1,0 +1,8 @@
+.idea
+.temp
+playwright-report
+test-results
+node_modules
+.scannerwork
+npm-audit.html
+report.json
