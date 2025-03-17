@@ -3,17 +3,7 @@ import path from "node:path";
 import type { PlaywrightTestConfig } from "@playwright/test";
 
 export const outputDir = path.resolve(process.cwd(), "./test-results");
-const microAppPath = "./test/microapp/";
-
-function generateProjects(testsPath: string) {
-	const items = fs.readdirSync(testsPath);
-	return items
-		.filter((item) => fs.statSync(path.join(testsPath, item)).isDirectory())
-		.map((dirName) => ({
-			name: dirName,
-			testDir: `${testsPath}${dirName}/`,
-		}));
-}
+const testsPath = "./test";
 
 const config: PlaywrightTestConfig = {
 	fullyParallel: true,
@@ -33,7 +23,11 @@ const config: PlaywrightTestConfig = {
 			mode: "off",
 		},
 	},
-	projects: [...generateProjects(microAppPath)],
+	projects: [
+		{
+			name: "chromium",
+		},
+	],
 };
 
 export default config;
