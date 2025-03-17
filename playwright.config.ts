@@ -25,7 +25,7 @@ const config: PlaywrightTestConfig = {
 	},
 	projects: [
 		{
-			name: 'chromium',
+			name: "chromium",
 		},
 	],
 };

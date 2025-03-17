@@ -1,9 +1,9 @@
 import { CONFIG } from "@api-config";
 import type { ControllerOptions } from "../contoller/base.controller";
-import { PetController } from "../contoller/pet/pet.controller";
+import { StoreController } from "../contoller/store/store.controller";
 
 export class ApiClient {
-	readonly pet: PetController;
+	readonly store: StoreController;
 
 	constructor(options?: Partial<ControllerOptions>) {
 		const defaultOptions = {
@@ -14,7 +14,7 @@ export class ApiClient {
 			...defaultOptions,
 			...options,
 		};
-		this.pet = new PetController(mergedOptions);
+		this.store = new StoreController(mergedOptions);
 	}
 
 	static v2Client() {
