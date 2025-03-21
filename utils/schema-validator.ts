@@ -37,11 +37,7 @@ export class SchemaValidator {
 
 			if (regex.test(url)) return pattern.replace(/\/$/, ""); // Return matched pattern
 		}
-
-		console.error("No match found");
-		return new Error("Url not found in paths");
 	}
-
 
 	async getRequestSchema() {
 		const schema = await this.getFullSchema();

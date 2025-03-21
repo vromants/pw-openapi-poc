@@ -2,11 +2,11 @@ import { test as base } from "@playwright/test";
 import { ApiClient } from "../api/core/client";
 
 type ApiClientFixture = {
-	v2Client: ApiClient;
+	V31_PREFIX_PATH: ApiClient;
 };
 export const test = base.extend<ApiClientFixture>({
-	v2Client: async ({ defaultBrowserType }, use) => {
-		await use(ApiClient.v2Client());
+	V31_PREFIX_PATH: async ({ defaultBrowserType }, use) => {
+		await use(ApiClient.v3Client());
 	},
 });
 
