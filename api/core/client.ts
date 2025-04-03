@@ -1,23 +1,23 @@
 import { CONFIG } from "@api-config";
 import type { ControllerOptions } from "../contoller/base.controller";
-import { PetController } from "../contoller/pet/pet.controller";
+import { EngineerController } from "../contoller/engineer/engineer.controller";
 
 export class ApiClient {
-	readonly pet: PetController;
+	readonly engineer: EngineerController;
 
 	constructor(options?: Partial<ControllerOptions>) {
 		const defaultOptions = {
 			prefixUrl: CONFIG.BASE_URL,
-			prefixPath: CONFIG.V31_PREFIX_PATH,
+			prefixPath: CONFIG.PREFIX_PATH,
 		};
 		const mergedOptions = {
 			...defaultOptions,
 			...options,
 		};
-		this.pet = new PetController(mergedOptions);
+		this.engineer = new EngineerController(mergedOptions);
 	}
 
-	static v3Client() {
-		return new ApiClient({ prefixPath: CONFIG.V31_PREFIX_PATH });
+	static client() {
+		return new ApiClient({ prefixPath: CONFIG.PREFIX_PATH });
 	}
 }

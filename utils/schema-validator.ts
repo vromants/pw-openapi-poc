@@ -23,20 +23,16 @@ export class SchemaValidator {
 	}
 
 	private matchUrlWithPattern(url: string, patterns: string[]) {
-		// Normalize URL (ensure leading slash, remove trailing slash, and version prefix)
-		url = `/${url.replace(/^\/|\/$/g, "").replace(/^v\d+\//, "")}`;
-
 		for (const pattern of patterns) {
-			// Normalize pattern and create regex
-			const regex = new RegExp(
-				`^${pattern
-					.replace(/\/$/, "") // Remove trailing slash
-					.replace(/\*\*/g, ".*") // Wildcards to match any characters
-					.replace(/{[^/]+}/g, "[^/]+")}/?$`, // Placeholders to match dynamic segments
-			);
-
-			if (regex.test(url)) return pattern.replace(/\/$/, ""); // Return matched pattern
+			const regexPattern = pattern
+				.replace(/\*\*/g, ".*") // Convert '**' to '.*' for wildcard matching
+				.replace(/{[^/]+}/g, "[^/]+"); // Convert placeholders to regex pattern
+			const regex = new RegExp(`^${regexPattern}$`);
+			if (regex.test(url)) {
+				return pattern;
+			}
 		}
+		return new Error("Url not found in paths");
 	}
 
 	async getRequestSchema() {
