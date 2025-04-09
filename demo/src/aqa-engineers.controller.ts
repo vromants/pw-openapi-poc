@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, HttpCode } from '@nestjs/common';
 import  {AqaEngineerService} from './aqa-enginneer.service';
 import { CreateEngineerDto } from './dto/create-engineer.dto';
 import { GetEngineerDto } from './dto/get-engineer.dto';
+import { MessageDto } from './dto/message.dto';
 import { AqaEngineer } from './entity/aqa-engineer.entity';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 import { engineerFactory } from './factory/engineer.factory';
@@ -13,10 +14,11 @@ export class AqaEngineerController {
 
     @Post()
     @ApiOperation({ summary: 'Create an AQA Engineer' })
-    @ApiResponse({ status: 201, description: 'Engineer successfully created.' })
-    @ApiBody({ type: [CreateEngineerDto] })
+    @ApiResponse({ status: 201, description: 'Engineer successfully created.', type:  GetEngineerDto})
+    @ApiBody({ type: CreateEngineerDto })
     create(@Body() body: CreateEngineerDto) {
         const engineer = new AqaEngineer(body.name, body.experience, body.favoriteTool, body.flakinessLevel);
+        engineer.isActive = true;
         return this.service.create(engineer);
     }
 
@@ -54,9 +56,8 @@ export class AqaEngineerController {
 
     @Delete(':id')
     @ApiOperation({ summary: 'Delete an AQA Engineer' })
-    @ApiResponse({ status: 204, description: 'Engineer successfully deleted.' })
-    @ApiResponse({ status: 404, description: 'Engineer not found.' })
+    @ApiResponse({ status: 200, description: 'Engineer not found.', type: MessageDto })
     remove(@Param('id') id: string) {
-        return this.service.remove(id);
+       return this.service.remove(id);
     }
 }

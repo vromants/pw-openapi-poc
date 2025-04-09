@@ -34,6 +34,6 @@ export class AqaEngineerService {
 
     remove(id: string) {
         this.engineers = this.engineers.filter((e) => e.id !== id);
-        return { message: 'Engineer removed' };
+        return {message: "User was removed"};
     }
 }

@@ -6,9 +6,8 @@
 	"scripts": {
 		"test": "npx playwright test --debug",
 		"check": "npx @biomejs/biome check --verbose  --apply ./",
-		"gen": "npx openapi-typescript <url> --output ./.temp/types.ts",
-		"prepare": "husky",
-		"posttest": "node-sonar-scanner -e ./idea/**,./vscode/** -E sonar.tests:./test sonar.coverage.exclusions:./api/**,./utils/**,./config/** -v Xmx3062m XX:ReservedCodeCacheSize=128m"
+		"gen": "npx openapi-typescript http://localhost:3000/json --output ./.temp/types.ts",
+		"prepare": "husky"
 	},
 	"engine": {
 		"node": ">=20 <21"
