@@ -1,6 +1,7 @@
 import { expect, test } from "../utils/client.fixture";
 
-test.describe.serial("Validate engineers", () => {
+test.describe
+	.serial("Validate engineers", () => {
 		let engineerId: string;
 		const name = `Test + ${Date.now()}`;
 		const updatedName = `Updated name + ${Date.now()}`;
