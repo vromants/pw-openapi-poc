@@ -1,22 +1,21 @@
 import { expect, test } from "../utils/client.fixture";
 
 test.describe
-	.serial("Validate engineers", () => {
+	.serial("Validate CRUD operations", () => {
 		let engineerId: string;
-		const name = `Test + ${Date.now()}`;
+		const randomName = `Test + ${Date.now()}`;
 		const updatedName = `Updated name + ${Date.now()}`;
 
 		test("Create new engineer", async ({ client }) => {
 			const requestBody = {
-				name: name,
+				name: randomName,
 				experience: 1,
 				favoriteTool: "playwright",
 				flakinessLevel: 1,
 			};
-
 			const response = await client.engineer.createEngineer(requestBody);
 			engineerId = response.id;
-			expect(response.name).toBe(name);
+			expect(response.name).toBe(randomName);
 			expect(response.experience).toBe(1);
 			expect(response.favoriteTool).toBe("playwright");
 			expect(response.flakinessLevel).toBe(1);
@@ -49,5 +48,7 @@ test.describe
 
 		test("Delete engineer", async ({ client }) => {
 			const response = await client.engineer.deleteEngineer(engineerId);
+			expect(response.message).toBe("User was removed");
 		});
 	});
+
